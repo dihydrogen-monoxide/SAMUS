@@ -85,7 +85,7 @@ class MainClass extends PluginBase implements Listener
         $playerName = strtolower($player->getName());
         if(isset($this->unAuthedPlayers[$playerName])) {
             $event->setCancelled();
-            $player->sendTitle("You must login or register before you may chat.");
+            $player->addTitle("Unauthorized!", "You must login or register.");
         }
 
     }
