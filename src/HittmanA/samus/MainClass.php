@@ -24,7 +24,7 @@ class MainClass extends PluginBase implements Listener
         $this->saveDefaultConfig();
 
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getServer()->getPluginManager()->registerEvents(new Events($this), $this);
+        //$this->getServer()->getPluginManager()->registerEvents(new Events($this), $this);
         $users = new Config($this->getDataFolder() . "players.json", Config::JSON, []);
         $this->getLogger()->notice("Loaded!");
     }
