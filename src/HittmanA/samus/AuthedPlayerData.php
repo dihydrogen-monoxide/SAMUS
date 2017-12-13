@@ -4,7 +4,7 @@ namespace HittmanA\samus;
 
 use pocketmine\Player;
 
-class UnAuthedPlayerData
+class AuthedPlayerData
 {
 
     public function __construct(Player $player, AuthedPlayerData $playerData)
