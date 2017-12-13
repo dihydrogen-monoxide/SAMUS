@@ -18,11 +18,9 @@ class MainClass extends PluginBase implements Listener
     /** @var Config */
     protected $users;
 
-    $users = new Config($this->getDataFolder() . "players.json", Config::JSON, []);
-
     public function onEnable()
     {
-        //Make the faction config
+        $users = new Config($this->getDataFolder() . "players.json", Config::JSON, []);
         @mkdir($this->getDataFolder());
         $this->saveDefaultConfig();
 
