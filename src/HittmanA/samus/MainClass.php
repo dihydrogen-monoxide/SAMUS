@@ -25,7 +25,7 @@ class MainClass extends PluginBase implements Listener
 
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         //$this->getServer()->getPluginManager()->registerEvents(new Events($this), $this);
-        $users = new Config($this->getDataFolder() . "players.json", Config::JSON, []);
+        $this->users = new Config($this->getDataFolder() . "players.json", Config::JSON, []);
         $this->getLogger()->notice("Loaded!");
     }
 
@@ -37,14 +37,14 @@ class MainClass extends PluginBase implements Listener
     public function onJoin(PlayerJoinEvent $event)
     {
         $player = $event->getPlayer();
-        if($users->get($player->getName()) !== null) {
+        if($this->users->get($player->getName()) !== null) {
             $player->sendMessage("Welcome back");
         } else {
-            $users->set(strtolower($player->getName()), [
+            $this->users->set(strtolower($player->getName()), [
                 "name" => strtolower($player->getName()),
                 "password" => "IMAPASSWORD"
             ]);
-            $users->save();
+            $this->users->save();
         }
     }
 
