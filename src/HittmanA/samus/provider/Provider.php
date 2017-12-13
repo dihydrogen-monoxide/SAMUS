@@ -1,6 +1,6 @@
 <?php
 
-namespace HittmanA\factionspp\provider;
+namespace HittmanA\samus\provider;
 
 use pocketmine\IPlayer;
 use pocketmine\Player;

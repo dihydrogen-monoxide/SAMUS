@@ -8,8 +8,8 @@ use HittmanA\samus\AuthedPlayer;
 use HittmanA\samus\AuthedPlayerData;
 
 //Providers
-use HittmanA\factionspp\provider\BaseProvider;
-use HittmanA\factionspp\provider\JSONProvider;
+use HittmanA\samus\provider\BaseProvider;
+use HittmanA\samus\provider\JSONProvider;
 
 //PocketMine
 use pocketmine\command\Command;

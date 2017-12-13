@@ -1,8 +1,8 @@
 <?php
 
-namespace HittmanA\factionspp\provider;
+namespace HittmanA\samus\provider;
 
-use HittmanA\factionspp\MainClass;
+use HittmanA\samus\MainClass;
 
 abstract class BaseProvider implements Provider
 {
