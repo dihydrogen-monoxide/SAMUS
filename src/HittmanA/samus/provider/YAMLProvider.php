@@ -1,9 +1,8 @@
 <?php
 
-namespace HittmanA\factionspp\provider;
+namespace HittmanA\samus\provider;
 
-use HittmanA\factionspp\MainClass;
-use HittmanA\factionspp\Member;
+use HittmanA\samus\MainClass;
 use pocketmine\IPlayer;
 use pocketmine\Player;
 use pocketmine\utils\Config;
@@ -182,5 +181,5 @@ class YAMLProvider extends BaseProvider implements Provider
         return true;
     }
     */
-    
+
 }

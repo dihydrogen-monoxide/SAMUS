@@ -1,8 +1,8 @@
 <?php
 
-namespace HittmanA\factionspp\provider;
+namespace HittmanA\samus\provider;
 
-use HittmanA\factionspp\MainClass;
+use HittmanA\samus\MainClass;
 use pocketmine\IPlayer;
 use pocketmine\Player;
 
@@ -82,5 +82,5 @@ class SQLiteProvider extends BaseProvider implements Provider
         // TODO: Implement save() method.
     }
     */
-    
+
 }
