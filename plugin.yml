@@ -1,0 +1,7 @@
+main: HittmanA\samus\MainClass
+api: [3.0.0-ALPHA10]
+
+name: SAMUS
+description: A different auth plugin
+version: 0.0.1
+author: HittmanA
