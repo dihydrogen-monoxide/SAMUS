@@ -39,7 +39,7 @@ class MainClass extends PluginBase implements Listener
 
     public function onJoin(PlayerJoinEvent $event)
     {
-        $player = $event-getPlayer();
+        $player = $event->getPlayer();
         if(isset($users->get($player->getName()))) {
             $player->sendMessage("Welcome back");
         } else {
