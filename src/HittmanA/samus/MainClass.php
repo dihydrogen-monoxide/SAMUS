@@ -80,6 +80,7 @@ class MainClass extends PluginBase implements Listener
     {
 
         $player = $event->getPlayer();
+        $playerName = $player->getName();
         $this->unAuthedPlayers[$playerName] = $player;
         if($this->provider->playerIsRegistered($player)) {
             $player->addTitle("Welcome Back!", "Please login by typing your password directly into chat (No one will see it).");
@@ -110,6 +111,7 @@ class MainClass extends PluginBase implements Listener
     {
 
         $player = $event->getPlayer();
+        $playerName = $player->getName();
         if(isset($this->unAuthedPlayers[$playerName])) {
             $event->setCancelled();
             $player->addTitle("Unauthorized!", "You must login or register.");
