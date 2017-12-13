@@ -7,6 +7,10 @@ use HittmanA\samus\UnAuthedPlayer;
 use HittmanA\samus\AuthedPlayer;
 use HittmanA\samus\AuthedPlayerData;
 
+//Providers
+use HittmanA\factionspp\provider\BaseProvider;
+use HittmanA\factionspp\provider\JSONProvider;
+
 //PocketMine
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -28,6 +32,9 @@ class MainClass extends PluginBase implements Listener
     /** @var Player */
     protected $unAuthedPlayers = [];
 
+    /** @var BaseProvider */
+    private $provider = null;
+
     public function onEnable()
     {
 
@@ -38,6 +45,27 @@ class MainClass extends PluginBase implements Listener
         //$this->getServer()->getPluginManager()->registerEvents(new Events($this), $this);
         $this->users = new Config($this->getDataFolder() . "players.json", Config::JSON, []);
         $this->getLogger()->notice("Loaded!");
+
+        switch(strtolower($this->getConfig()->get("provider")))
+        {
+            case "json":
+                $this->provider = new JSONProvider($this);
+                break;
+            default:
+                $this->getLogger()->error("Invalid database was given. Selecting JSON data provider as default.");
+                $this->provider = new JSONProvider($this);
+                break;
+        }
+
+        $this->getLogger()->notice("Database provider set to " . TextFormat::YELLOW . $this->provider->getProvider());
+        if($this->provider->getNumberOfPlayers() == 1)
+        {
+            $this->getLogger()->notice($this->provider->getNumberOfPlayers() . " player profile has been loaded.");
+        }
+        else
+        {
+            $this->getLogger()->notice($this->provider->getNumberOfPlayers() . " player profiles have been loaded.");
+        }
 
     }
 
@@ -52,16 +80,11 @@ class MainClass extends PluginBase implements Listener
     {
 
         $player = $event->getPlayer();
-        $playerName = strtolower($player->getName());
         $this->unAuthedPlayers[$playerName] = $player;
-        if(isset($this->users->get($playerName)["name"])) {
-            $player->sendMessage("Welcome back");
+        if($this->provider->playerIsRegistered($player)) {
+            $player->addTitle("Welcome Back!", "Please login by typing your password directly into chat (No one will see it).");
         } else {
-            $this->users->set($playerName, [
-                "name" => $playerName,
-                "password" => "IMAPASSWORD"
-            ]);
-            $this->users->save();
+            $player->addTitle("Welcome!", "Please register by typing your desired password directly into chat (No one will see it).");
         }
 
     }
@@ -72,8 +95,13 @@ class MainClass extends PluginBase implements Listener
         $player = $event->getPlayer();
         $playerName = strtolower($player->getName());
         if(isset($this->unAuthedPlayers[$playerName])) {
+            $password = $event->getMessage();
+            $this->provider->createPlayer($player, $password);
+            $player->addTitle("Success!", "You have been successfully registered.");
+            if (($key = array_search($playerName, $this->unAuthedPlayers)) !== false) {
+                unset($unAuthedPlayers[$key]);
+            }
             $event->setCancelled();
-            $player->sendMessage("You must login or register before you may chat.");
         }
 
     }
@@ -82,7 +110,6 @@ class MainClass extends PluginBase implements Listener
     {
 
         $player = $event->getPlayer();
-        $playerName = strtolower($player->getName());
         if(isset($this->unAuthedPlayers[$playerName])) {
             $event->setCancelled();
             $player->addTitle("Unauthorized!", "You must login or register.");
