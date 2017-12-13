@@ -43,8 +43,8 @@ class MainClass extends PluginBase implements Listener
         if(isset($users->get($player->getName()))) {
             $player->sendMessage("Welcome back");
         } else {
-            $users->set(strtolower($sender->getName()), [
-                "name" => strtolower($sender->getName()),
+            $users->set(strtolower($player->getName()), [
+                "name" => strtolower($player->getName()),
                 "password" => "IMAPASSWORD"
             ]);
             $users->save();
