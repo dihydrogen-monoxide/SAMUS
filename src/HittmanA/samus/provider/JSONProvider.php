@@ -30,22 +30,22 @@ class JSONProvider extends BaseProvider implements Provider
         $this->users = new Config($this->plugin->getDataFolder() . "players.json", Config::JSON, []);
     }
 
-    public function getProvider(): string
+    public function getProvider()
     {
         return "json";
     }
 
-    public function getNumberOfPlayers(): int
+    public function getNumberOfPlayers()
     {
         return count($this->users->getAll());
     }
 
-    public function createPlayer(Player $sender, string $password): bool
+    public function createPlayer(Player $sender, string $password)
     {
         //And make a new player profile in the player config.
         $this->users->set(strtolower($sender->getName()), [
             "username" => strtolower($sender->getName()),
-            "password" => password_hash($password, PASSWORD_BCRYPT, $options);//,
+            "password" => password_hash($password, PASSWORD_BCRYPT, $options)//,
             //"role" => Member::MEMBER_LEADER
         ]);
         $this->save();
@@ -58,7 +58,7 @@ class JSONProvider extends BaseProvider implements Provider
         $this->users->save();
     }
 
-    public function removePlayer(Player $player): bool
+    public function removePlayer(Player $player)
     {
         $this->users->remove($player);
         //Save the faction config.
@@ -67,7 +67,7 @@ class JSONProvider extends BaseProvider implements Provider
         return true;
     }
 
-    public function getPlayer(Player $player): array
+    public function getPlayer(Player $player)
     {
         $playerName = strtolower($player->getName());
         if($this->users->get($playerName) == false)
@@ -80,7 +80,7 @@ class JSONProvider extends BaseProvider implements Provider
         }
     }
 
-    public function playerIsRegistered(Player $player): bool
+    public function playerIsRegistered(Player $player)
     {
         if(isset($this->getPlayer($player)["username"]))
         {
