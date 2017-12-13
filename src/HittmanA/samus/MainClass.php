@@ -94,7 +94,7 @@ class MainClass extends PluginBase implements Listener
     {
 
         $player = $event->getPlayer();
-        $playerName = strtolower($player->getName());
+        $playerName = $player->getName();
         if(isset($this->unAuthedPlayers[$playerName])) {
             $password = $event->getMessage();
             $this->provider->createPlayer($player, $password);
