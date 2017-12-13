@@ -30,17 +30,17 @@ class JSONProvider extends BaseProvider implements Provider
         $this->users = new Config($this->plugin->getDataFolder() . "players.json", Config::JSON, []);
     }
 
-    public function getProvider()
+    public function getProvider(): string
     {
         return "json";
     }
 
-    public function getNumberOfPlayers()
+    public function getNumberOfPlayers(): int
     {
         return count($this->users->getAll());
     }
 
-    public function createPlayer(Player $sender, string $password)
+    public function createPlayer(Player $sender, string $password): bool
     {
         //And make a new player profile in the player config.
         $this->users->set(strtolower($sender->getName()), [
@@ -58,7 +58,7 @@ class JSONProvider extends BaseProvider implements Provider
         $this->users->save();
     }
 
-    public function removePlayer(Player $player)
+    public function removePlayer(Player $player): bool
     {
         $this->users->remove($player);
         //Save the faction config.
@@ -67,7 +67,7 @@ class JSONProvider extends BaseProvider implements Provider
         return true;
     }
 
-    public function getPlayer(Player $player)
+    public function getPlayer(Player $player): array
     {
         $playerName = strtolower($player->getName());
         if($this->users->get($playerName) == false)
@@ -80,7 +80,7 @@ class JSONProvider extends BaseProvider implements Provider
         }
     }
 
-    public function playerIsRegistered(Player $player)
+    public function playerIsRegistered(Player $player): bool
     {
         if(isset($this->getPlayer($player)["username"]))
         {
