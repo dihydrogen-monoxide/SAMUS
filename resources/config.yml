@@ -1,3 +1,4 @@
 ---
 provider: json
+security: 10
 ...

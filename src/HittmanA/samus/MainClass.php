@@ -49,11 +49,11 @@ class MainClass extends PluginBase implements Listener
         switch(strtolower($this->getConfig()->get("provider")))
         {
             case "json":
-                $this->provider = new JSONProvider($this);
+                $this->provider = new JSONProvider($this, $this->getConfig()->get("security"));
                 break;
             default:
                 $this->getLogger()->error("Invalid database was given. Selecting JSON data provider as default.");
-                $this->provider = new JSONProvider($this);
+                $this->provider = new JSONProvider($this, $this->getConfig()->get("security"));
                 break;
         }
 
